@@ -526,3 +526,4 @@ void GameScene::initEnemyParty()
 	_enemyParty->setPosition(0, ENEMY_PARTY_Y);
 	addChild(_enemyParty, Z_ENEMY);
 }
+
