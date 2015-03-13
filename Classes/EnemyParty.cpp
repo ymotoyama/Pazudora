@@ -70,7 +70,7 @@ void EnemyParty::incrementTurn()
 	}
 }
 
-void EnemyParty::attack(std::function<void()> onComplete)
+void EnemyParty::attack(Party* party, std::function<void()> onComplete)
 {
 	float delayTime = 0;
 
@@ -78,7 +78,7 @@ void EnemyParty::attack(std::function<void()> onComplete)
 	{
 		if (enemy->getRemainingTurnForAttack() <= 0)
 		{
-			EXEC_DELAY(delayTime, [enemy](){enemy->attack(); }, enemy);			
+			EXEC_DELAY(delayTime, [=](){enemy->attack(party); }, enemy);
 
 			delayTime += ENEMY_ATTACK_INTERVAL;
 		}

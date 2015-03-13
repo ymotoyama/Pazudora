@@ -167,19 +167,26 @@ void GameScene::changeState(State newState)
 	} break;
 	case State::ENEMY_ATTACK: {
 		_enemyParty->incrementTurn();
-		
-		_enemyParty->attack([this](){ changeState(State::AFTER_ENEMY_ATTACK); });
+
+		_enemyParty->attack(_party, ([this](){ changeState(State::AFTER_ENEMY_ATTACK); }));
 
 	} break;
 	case State::AFTER_ENEMY_ATTACK: {
-		// TODO プレイヤーのライフがゼロになったかどうか判定
-		changeState(State::WAITING_INPUT);
+		if (_party->isAlive())
+		{
+			changeState(State::WAITING_INPUT);
+		}
+		else
+		{
+			changeState(State::GAME_OVER);
+		}
 	} break;
-	case State::GAME_OVER:
-		break;
-	case State::GAME_CLEAR:
+	case State::GAME_OVER: {
+		CCLOG("Game Over!!");
+	} break;
+	case State::GAME_CLEAR: {
 		CCLOG("Game Clear!!");
-		break;
+	} break;
 	default:
 		break;
 	}

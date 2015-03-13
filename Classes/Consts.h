@@ -46,10 +46,12 @@ static const float ATTACK_CHAGE_EFFECT_DURATION = 0.25f;
 static const float MEMBERS_ATTACK_INTERVAL = 0.15f;
 // 味方の攻撃エフェクト開始から着弾までの時間（秒）
 static const float ATTACK_EFFECT_DURATION = 0.3f;
+// パーティのライフゲージが減るのにかかる時間
+static const float PARTY_APPLY_DAMAGE_DURATION = 0.5f;
 // 敵パーティのy座標
 static const float ENEMY_PARTY_Y = 700;
 // 敵1体攻撃間隔（秒）
-static const float ENEMY_ATTACK_INTERVAL = 0.3f;
+static const float ENEMY_ATTACK_INTERVAL = 0.5f;
 // 敵の攻撃エフェクトの時間（秒）
 static const float ENEMY_ATTACK_EFFECT_DURATION = 0.2f;
 // 敵の攻撃を受けてライフゲージが減るのに要する時間（秒）

@@ -14,6 +14,8 @@ enum class EnemyKind
 	ENEMY3,
 };
 
+// 循環してるので前方宣言
+class Party;
 class PartyMember;
 
 // 敵クラス
@@ -65,7 +67,7 @@ public:
 	int getRemainingTurnForAttack();
 
 	// プレイヤーを攻撃する
-	void attack();
+	void attack(Party* party);
 
 	// 攻撃までの残りターン数をリセットする
 	void resetRemainingTurnForAttack();

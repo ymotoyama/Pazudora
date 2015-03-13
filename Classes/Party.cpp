@@ -1,6 +1,7 @@
 #include "Party.h"
 #include "Consts.h"
 #include "AttackPowerChargeEffect.h"
+#include "MotoUtil.h"
 
 static const int MEMBER_COUNT = 6;
 static const float WIDTH = 100;
@@ -34,7 +35,6 @@ bool Party::init()
 	return true;
 }
 
-
 void Party::addPowerByEraseDrop(Attribute attribute, int dropNum)
 {
 	if (attribute == Attribute::LIFE)
@@ -46,7 +46,6 @@ void Party::addPowerByEraseDrop(Attribute attribute, int dropNum)
 		addAttackPowerByEraseDrop(attribute, dropNum);
 	}
 }
-
 
 void Party::addAttackPowerByEraseDrop(Attribute attribute, int dropNum)
 {
@@ -156,7 +155,24 @@ void Party::initLifeGauge()
 
 void Party::updateLifeGauge(int newValue, int maxValue)
 {
-	_lifeGauge->setPercentage(((float)newValue) / maxValue * 100);
+	// Šù‚ÉU“®’†‚Ìê‡A‚»‚ê‚ðŽ~‚ß‚éiŒ³‚ÌˆÊ’u‚É–ß‚·j
+	forceFinishActionByTag(this, TAG_SHAKE_ACTION);
+
+	// ƒQ[ƒWŒ¸­’†‚Å‚ ‚éê‡A‚»‚ê‚ðŽ~‚ß‚é
+	_lifeGauge->stopAllActions();
+
+	// —h‚ç‚·
+	auto shake = Shake::create(0.3f, Vec2(5, 5), 0.8f);
+	shake->setTag(TAG_SHAKE_ACTION);
+	_lifeGauge->runAction(shake);	
+
+	float newPercentage = ((float)newValue) / maxValue * 100;
+
+	auto action = CustomAction::create(PARTY_APPLY_DAMAGE_DURATION, _lifeGauge->getPercentage(), newPercentage,
+		[this](float value){_lifeGauge->setPercentage(value); });
+	auto ease = EaseQuadraticActionOut::create(action);
+
+	runAction(ease);
 }
 
 void Party::updateCurePowerLabel(int newValue)
@@ -326,6 +342,11 @@ Enemy* Party::decideAttackTarget(std::vector<Enemy*> enemies, EnemyLifeTable ene
 	std::sort(enemiesCouldNotBeKill.begin(), enemiesCouldNotBeKill.end(), [](Enemy* a, Enemy* b){return (a->getMaxLife() < b->getMaxLife()); });
 
 	return enemiesCouldNotBeKill.front();
+}
+
+bool Party::isAlive()
+{
+	return (_life > 0);
 }
 
 bool Party::canKill(Enemy* target, int remainingLife, PartyMember* member)

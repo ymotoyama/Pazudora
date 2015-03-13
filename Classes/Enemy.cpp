@@ -3,6 +3,7 @@
 #include "PartyMember.h"
 #include "MotoUtil.h"
 #include "Consts.h"
+#include "Party.h"
 
 static const Vec2 LIFE_GAUGE_POSITION = Vec2(0, -30);
 static const float APPLY_DAMAGE_DURATION = 0.2f;
@@ -219,13 +220,15 @@ int Enemy::getRemainingTurnForAttack()
 	return _remainingTurnForAttack;
 }
 
-void Enemy::attack()
+void Enemy::attack(Party* party)
 {
 	if (!isAlive())
 		return;
 
-	// TODO
-	CCLOG("Enemy's Attack!");
+	auto jump = JumpBy::create(0.14f, Vec2::ZERO, -20, 1);
+	runAction(jump);
+
+	EXEC_DELAY(0.07f, [=](){party->applyDamage(_attackPower); }, this);
 }
 
 void Enemy::resetRemainingTurnForAttack()

@@ -42,10 +42,7 @@ public:
 
 	// パーティにダメージを与える（食らう）
 	void applyDamage(int damage);
-
-	// ライフゲージを更新する
-	void updateLifeGauge(int newValue, int maxValue);
-
+	
 	// ドロップ消去により、攻撃力（または回復力）がチャージされる時のエフェクトを発生させる
 	void fireChargeEffect(const Vec2& startPosition, Attribute attribute);
 
@@ -65,6 +62,9 @@ public:
 	// ・一撃では倒せない高HPの敵
 	Enemy* decideAttackTarget(std::vector<Enemy*> enemies, EnemyLifeTable enemyLifeTable, PartyMember* member);
 
+	// 生きているか？
+	bool isAlive();
+
 private:
 	// パーティーメンバーの配列
 	std::vector<PartyMember*> _members;
@@ -82,6 +82,8 @@ private:
 	Label* _curePowerLabel;
 
 	void loadMembers();
+	// ライフゲージを更新する
+	void updateLifeGauge(int newValue, int maxValue);
 	void addAttackPowerByEraseDrop(Attribute attribute, int dropNum);
 	void addCurePowerByEraseDrop(int dropNum);
 	void addCurePowerRate(float amount);

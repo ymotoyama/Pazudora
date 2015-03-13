@@ -6,6 +6,8 @@
 
 USING_NS_CC;
 
+class Party;
+
 class EnemyParty : public Node
 {
 public:
@@ -26,7 +28,7 @@ public:
 	// 各メンバーの攻撃。
 	// 攻撃までの残りターン数がゼロのモンスターに攻撃をさせる。
 	// onComplete : 敵の攻撃完了時に実施する処理を渡す。
-	void attack(std::function<void()> onComplete);
+	void attack(Party* party, std::function<void()> onComplete);
 
 	// 全滅したか？
 	bool isWipedOut();
