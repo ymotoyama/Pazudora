@@ -28,8 +28,7 @@ bool GameScene::init()
 	SimpleAudioEngine::getInstance()->preloadEffect(ERASE_DROP_SE);
 	SimpleAudioEngine::getInstance()->preloadEffect(SWAP_DROP_SE);
 	SimpleAudioEngine::getInstance()->preloadEffect(CHARGE_SE);
-
-
+	
 	for (int row = 0; row < ROW_COUNT; row++)
 	{
 		for (int column = 0; column < COLUMN_COUNT; column++)
