@@ -167,9 +167,7 @@ void GameScene::changeState(State newState)
 	} break;
 	case State::ENEMY_ATTACK: {
 		_enemyParty->incrementTurn();
-
 		_enemyParty->attack(_party, ([this](){ changeState(State::AFTER_ENEMY_ATTACK); }));
-
 	} break;
 	case State::AFTER_ENEMY_ATTACK: {
 		if (_party->isAlive())
