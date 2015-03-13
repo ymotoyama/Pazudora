@@ -107,7 +107,6 @@ void GameScene::update(float delta)
 	default:
 		break;
 	}
-
 }
 
 void GameScene::changeState(State newState)
