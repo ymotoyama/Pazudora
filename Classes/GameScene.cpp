@@ -5,7 +5,6 @@
 #include "MotoUtil.h"
 #include "SimpleAudioEngine.h"
 
-// test
 using namespace CocosDenshion;
 
 #define ERASE_DROP_SE "power38.wav"
