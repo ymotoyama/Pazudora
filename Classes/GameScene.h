@@ -57,6 +57,12 @@ private:
 	// ゲームの状態
 	State _state;
 
+	// 現在のバトル数
+	int _currentBattleCount;
+
+	// 総バトル数
+	int _maxBattleCount;
+
 	// ドロップを移動可能な残り時間
 	float _remainingTouchTime;
 	

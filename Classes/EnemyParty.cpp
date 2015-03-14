@@ -20,9 +20,16 @@ bool EnemyParty::init()
 
 	alignCenter();
 
-	for (auto enemy : _enemies)
+	for (unsigned int i = 0; i < _enemies.size(); i++)
 	{
+		auto enemy = _enemies.at(i);
 		addChild(enemy);
+		
+		enemy->setOpacity(0);
+		auto delay = DelayTime::create(0.12 * i);
+		auto fadein = FadeIn::create(0.3f);
+		auto seq = Sequence::create(delay, fadein, nullptr);
+		enemy->runAction(seq);
 	}
 
 	return true;

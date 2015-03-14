@@ -39,6 +39,9 @@ public:
 	// 受けるダメージを計算する
 	int calcDamage(int attackPower, Attribute attribute);
 
+	// 不透明度変更（HPゲージの不透明度変更のため）
+	void setOpacity(GLubyte opacity) override;
+
 	// ダメージを与える
 	void applyDamage(int damage);
 

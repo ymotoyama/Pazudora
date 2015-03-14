@@ -4,6 +4,7 @@
 #include "DropMatchChecker.h"
 #include "MotoUtil.h"
 #include "SimpleAudioEngine.h"
+#include "BattleCountLabel.h"
 
 using namespace CocosDenshion;
 
@@ -27,6 +28,9 @@ bool GameScene::init()
 	SimpleAudioEngine::getInstance()->preloadEffect(SWAP_DROP_SE);
 	SimpleAudioEngine::getInstance()->preloadEffect(CHARGE_SE);
 	
+	_currentBattleCount = 1;
+	_maxBattleCount = 5;
+
 	for (int row = 0; row < ROW_COUNT; row++)
 	{
 		for (int column = 0; column < COLUMN_COUNT; column++)
@@ -121,7 +125,8 @@ void GameScene::changeState(State newState)
 		EXEC_DELAY(0.1f, [this](){changeState(State::WALKING); }, this);
 	} break;
 	case State::WALKING: {
-		EXEC_DELAY(1.0f, [this](){changeState(State::ENCOUNTER); }, this);
+		BattleCountLabel::show(_currentBattleCount, _maxBattleCount, this);
+		EXEC_DELAY(1.6f, [this](){changeState(State::ENCOUNTER); }, this);
 	} break;
 	case State::BOSS_ALLERT: {
 	} break;

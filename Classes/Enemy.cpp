@@ -47,10 +47,7 @@ bool Enemy::init(EnemyKind kind)
 	};
 
 	auto enemyData = enemyDataTable.at(kind);
-
-	setCascadeOpacityEnabled(true);
-	setCascadeColorEnabled(true);
-
+	
 	auto sprite = Sprite::create(enemyData.imageFileName);
 	sprite->setAnchorPoint(Vec2::ANCHOR_MIDDLE_BOTTOM);
 	addChild(sprite);
@@ -70,7 +67,10 @@ bool Enemy::init(EnemyKind kind)
 
 	initLifeGauge(sprite->getContentSize().width);
 	initRemainingTurnForAttackLabel();
-	
+
+	setCascadeOpacityEnabled(true);
+	setCascadeColorEnabled(true);
+
 	return true;
 }
 
@@ -260,3 +260,9 @@ int Enemy::calcDamage(int attackPower, Attribute attribute)
 	return attackPower;
 }
 
+void Enemy::setOpacity(GLubyte opacity)
+{
+	Node::setOpacity(opacity);
+
+	_lifeGauge->setOpacity(opacity);
+}
