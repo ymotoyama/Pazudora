@@ -151,6 +151,8 @@ void Party::initLifeGauge()
 	_lifeGauge->setPercentage(100);
 
 	addChild(_lifeGauge, Z_LIFE_GAUGE);
+
+	// TODO ダメージ量（数値）の表示
 }
 
 void Party::updateLifeGauge(int newValue, int maxValue)

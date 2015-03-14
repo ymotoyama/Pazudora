@@ -23,8 +23,6 @@ GameScene* GameScene::create()
 
 bool GameScene::init()
 {
-	srand(time(nullptr));
-
 	SimpleAudioEngine::getInstance()->preloadEffect(ERASE_DROP_SE);
 	SimpleAudioEngine::getInstance()->preloadEffect(SWAP_DROP_SE);
 	SimpleAudioEngine::getInstance()->preloadEffect(CHARGE_SE);
@@ -38,7 +36,6 @@ bool GameScene::init()
 	}
 
 	initParty();
-	initEnemyParty();
 	initDrops();
 	
 	for (int row = 0; row < ROW_COUNT; row++)
@@ -53,7 +50,7 @@ bool GameScene::init()
 
 	registerTouchEvent();
 
-	changeState(State::WAITING_INPUT);
+	changeState(State::GAME_START);
 
 	scheduleUpdate();
 		
@@ -76,10 +73,16 @@ void GameScene::update(float delta)
 {
 	switch (_state)
 	{
-	case State::GAME_START:
-		break;
-	case State::WAITING_INPUT:
-		break;
+	case State::GAME_START: {
+	} break;
+	case State::WALKING: {
+	} break;
+	case State::BOSS_ALLERT: {
+	} break;
+	case State::ENCOUNTER: {
+	} break;
+	case State::WAITING_INPUT: {
+	} break;
 	case State::TOUCHING: {
 		_remainingTouchTime -= delta;
 		if (_remainingTouchTime <= 0)
@@ -87,22 +90,22 @@ void GameScene::update(float delta)
 			changeState(State::ERASING);
 		}
 	} break;
-	case State::ERASING:
-		break;
-	case State::CHARGE_ATTACK_POWER:
-		break;
-	case State::PARTY_ATTACK:
-		break;
-	case State::AFTER_PARTY_ATTACK:
-		break;
-	case State::ENEMY_ATTACK:
-		break;
-	case State::AFTER_ENEMY_ATTACK:
-		break;
-	case State::GAME_OVER:
-		break;
-	case State::GAME_CLEAR:
-		break;
+	case State::ERASING: {
+	} break;
+	case State::CHARGE_ATTACK_POWER: {
+	} break;
+	case State::PARTY_ATTACK: {
+	} break;
+	case State::AFTER_PARTY_ATTACK: {
+	} break;
+	case State::ENEMY_ATTACK: {
+	} break;
+	case State::AFTER_ENEMY_ATTACK: {
+	} break;
+	case State::GAME_OVER: {
+	} break;
+	case State::GAME_CLEAR: {
+	} break;
 	default:
 		break;
 	}
@@ -114,14 +117,24 @@ void GameScene::changeState(State newState)
 
 	switch (_state)
 	{
-	case State::GAME_START:
-		break;
-	case State::WAITING_INPUT:
-		break;
-	case State::TOUCHING:
+	case State::GAME_START: {
+		EXEC_DELAY(0.1f, [this](){changeState(State::WALKING); }, this);
+	} break;
+	case State::WALKING: {
+		EXEC_DELAY(1.0f, [this](){changeState(State::ENCOUNTER); }, this);
+	} break;
+	case State::BOSS_ALLERT: {
+	} break;
+	case State::ENCOUNTER: {
+		initEnemyParty();
+		EXEC_DELAY(0.1f, [this](){changeState(State::WAITING_INPUT); }, this);
+	} break;
+	case State::WAITING_INPUT: {
+	} break;
+	case State::TOUCHING: {
 		_remainingTouchTime = MAX_TOUCH_DURATION;
 		_comboCount = 0;
-		break;
+	}break;
 	case State::ERASING:{
 		_draggingDrop->setDragging(false);
 		_draggingDropSprite->removeFromParent();

@@ -15,6 +15,9 @@ namespace{
 	enum class State
 	{
 		GAME_START,
+		WALKING,
+		BOSS_ALLERT,
+		ENCOUNTER,
 		WAITING_INPUT,
 		TOUCHING,
 		ERASING,
