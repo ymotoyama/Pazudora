@@ -45,7 +45,7 @@ bool PositionIndex::operator==(const PositionIndex& p) const
 
 int PositionIndex::distance(const PositionIndex& a, const PositionIndex& b)
 {
-	int rowDistance = abs(a.row - b.row);
+	int rowDistance = std::abs(a.row - b.row);
 	int columnDistance = std::abs(a.column - b.column);
 
 	return (rowDistance + columnDistance);

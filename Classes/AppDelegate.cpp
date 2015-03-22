@@ -18,8 +18,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-		glview = GLView::createWithRect("Pazudora", Rect(0, 0, RESOLUTION_X, RESOLUTION_Y), ZOOM_FACTOR_FOR_WINDOWS);
-        director->setOpenGLView(glview);
+		glview = GLViewImpl::createWithRect("Pazudora", Rect(0, 0, RESOLUTION_X, RESOLUTION_Y), ZOOM_FACTOR_FOR_WINDOWS);
+		director->setOpenGLView(glview);
     }
 
 	glview->setDesignResolutionSize(RESOLUTION_X, RESOLUTION_Y, ResolutionPolicy::SHOW_ALL);
